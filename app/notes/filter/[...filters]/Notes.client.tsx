@@ -2,16 +2,20 @@
 
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useState } from 'react'
-import Pagination from '../../components/Pagination/Pagination'
+import Pagination from '@/components/Pagination/Pagination'
 import css from './NoteList.module.css'
-import { fetchNotes } from '../../lib/api'
-import NoteList from '../../components/NoteList/NoteList'
-import SearchBox from '../../components/SearchBox/SearchBox'
-import { Modal } from '../../components/Modal/Modal'
-import { NoteForm } from '../../components/NoteForm/NoteForm'
+import { fetchNotes } from '@/lib/api'
+import NoteList from '@/components/NoteList/NoteList'
+import SearchBox from '@/components/SearchBox/SearchBox'
+import { Modal } from '@/components/Modal/Modal'
+import { NoteForm } from '@/components/NoteForm/NoteForm'
 import { useDebounce } from 'use-debounce'
 
-function NotesClient() {
+interface Props {
+  categoryId?: string;
+}
+
+function NotesClient({ categoryId }: Props) {
   const [curPage, setCurPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("")
@@ -19,8 +23,12 @@ function NotesClient() {
   const [debouncedValue] = useDebounce(searchValue, 500);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ['notes', curPage, debouncedValue],
-    queryFn: () => fetchNotes(debouncedValue, curPage),
+    queryKey: ['notes', curPage, debouncedValue, categoryId],
+    queryFn: () => fetchNotes({
+      searchText: debouncedValue,
+      page: curPage,
+      categoryId
+    }),
     placeholderData: keepPreviousData
   })
 

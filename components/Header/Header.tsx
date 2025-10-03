@@ -1,7 +1,11 @@
+import { fetchCategories } from '@/lib/api'
+import TagsMenu from '../TagsMenu/TagsMenu'
 import css from './Header.module.css'
 import Link from 'next/link'
 
-export default function Header() {
+export default async function Header() {
+  const categories = await fetchCategories();
+
   return (
     <>
       <header className={css.header}>
@@ -14,7 +18,7 @@ export default function Header() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/notes">Notes</Link>
+              <TagsMenu categories={categories}></TagsMenu>
             </li>
           </ul>
         </nav>
