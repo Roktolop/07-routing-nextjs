@@ -3,14 +3,14 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import NotesClient from "./Notes.client";
 
 interface Props {
-  params: Promise<{ filters: string[] }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 export default async function FilteresPage({ params }: Props) {
-  const { filters } = await params;
-  console.log('filters', filters);
+  const { slug } = await params;
+  console.log('filters', slug);
 
-  const [categoryId] = filters;
+  const [categoryId] = slug;
 
   const requestParams = {
     categoryId: categoryId === 'all' ? undefined : categoryId, page: 1,
