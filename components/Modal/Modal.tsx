@@ -1,15 +1,21 @@
-// 'use client';
+'use client';
 
 import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import css from './Modal.module.css';
+import { useRouter } from 'next/navigation';
 
 interface ModalProps {
-  onClose: () => void;
   children: React.ReactNode;
 }
 
-export function Modal({ onClose, children }: ModalProps) {
+export function Modal({ children }: ModalProps) {
+  const router = useRouter();
+
+  const onClose = useCallback(() => {
+    router.back();
+  }, [router]);
+
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();

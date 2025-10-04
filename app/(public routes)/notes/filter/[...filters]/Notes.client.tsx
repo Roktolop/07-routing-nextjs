@@ -61,7 +61,7 @@ function NotesClient({ categoryId }: Props) {
             />}
 
           {isModalOpen &&
-            <Modal onClose={handleCloseModal}>
+            <Modal>
               <NoteForm onCancel={handleCloseModal} />
             </Modal>}
         </header>
