@@ -13,7 +13,7 @@ export default async function FilteresPage({ params }: Props) {
   const [categoryId] = slug;
 
   const requestParams = {
-    categoryId: categoryId === 'all' ? undefined : categoryId, page: 1,
+    categoryId: categoryId === 'All' ? undefined : categoryId, page: 1,
     searchText: ''
   }
 
