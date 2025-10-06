@@ -12,6 +12,7 @@ interface Props {
 }
 
 export function NotePreviewClient({ noteId }: Props) {
+
   const router = useRouter();
 
   const onClose = useCallback(() => {
@@ -32,7 +33,7 @@ export function NotePreviewClient({ noteId }: Props) {
 
   return (
     <>
-      <Modal>
+      <Modal onClose={onClose}>
         <div className={css.container}>
           <div className={css.item}>
             <div className={css.header}>
@@ -44,7 +45,7 @@ export function NotePreviewClient({ noteId }: Props) {
           </div>
           <button className={css.backBtn} onClick={onClose}>Back</button>
         </div>
-      </Modal>
+      </Modal >
     </>
   )
 }

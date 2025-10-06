@@ -6,25 +6,29 @@ import css from './Modal.module.css';
 import { useRouter } from 'next/navigation';
 
 interface ModalProps {
-  children: React.ReactNode;
+  children: React.ReactNode,
+  onClose?: () => void,
 }
 
-export function Modal({ children }: ModalProps) {
-  const router = useRouter();
+export function Modal({ children, onClose }: ModalProps) {
 
-  const onClose = useCallback(() => {
-    router.back();
-  }, [router]);
+  const handleClose = useCallback(() => {
+    if (onClose) {
+      onClose();
+    }
+
+  }, [onClose]);
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      handleClose();
     }
   }
+
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     }
 
@@ -36,7 +40,7 @@ export function Modal({ children }: ModalProps) {
       document.body.style.overflow = 'visible'
 
     }
-  }, [onClose]);
+  }, [handleClose]);
 
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return null;
