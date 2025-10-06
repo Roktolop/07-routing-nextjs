@@ -3,7 +3,6 @@
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect } from 'react';
 import css from './Modal.module.css';
-import { useRouter } from 'next/navigation';
 
 interface ModalProps {
   children: React.ReactNode,
