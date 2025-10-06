@@ -20,29 +20,29 @@ export default function TagsMenu({ categories }: TagsMenuProps) {
         Notes ▾
       </button>
       {/* список тегів */}
-      {isOpen && <ul className={css.menuList}>
-
-        <li className={css.menuItem}>
-          <Link
-            href={`/notes/filter/All`}
-            className={css.menuLink}
-            onClick={() => setIsOpen(false)}>
-            All notes
-          </Link>
-        </li>
-        {categories.map((category) => {
-          return (
-            <li key={category.id} className={css.menuItem}>
-              <Link
-                href={`/notes/filter/${category.id}`}
-                className={css.menuLink}
-                onClick={() => setIsOpen(false)}>
-                {category.name}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>}
+      {isOpen &&
+        <ul className={css.menuList}>
+          <li className={css.menuItem}>
+            <Link
+              href={`/notes/filter/All`}
+              className={css.menuLink}
+              onClick={() => setIsOpen(false)}>
+              All notes
+            </Link>
+          </li>
+          {categories.map((category) => {
+            return (
+              <li key={category.id} className={css.menuItem}>
+                <Link
+                  href={`/notes/filter/${category.id}`}
+                  className={css.menuLink}
+                  onClick={() => setIsOpen(false)}>
+                  {category.name}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>}
     </div >
 
   )

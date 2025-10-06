@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 export default async function Header() {
   const categories = await fetchCategories();
+  console.log('categories:', categories);
 
   return (
     <>
