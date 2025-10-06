@@ -65,8 +65,6 @@ export async function fetchNoteById(id: string): Promise<Note> {
 }
 
 export async function fetchCategories() {
-  console.log("Fetching categories from:", `${api.defaults.baseURL}/categories`);
-
   const response = await api.get<Category[]>(`/categories`);
 
   return response.data;
