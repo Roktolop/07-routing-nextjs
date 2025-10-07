@@ -1,15 +1,12 @@
 'use client';
 
-import { Category } from '@/types/note'
 import css from './TagsMenu.module.css'
 import Link from 'next/link';
 import { useState } from 'react';
 
-interface TagsMenuProps {
-  categories: Category[];
-}
+const tags = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
-export default function TagsMenu({ categories }: TagsMenuProps) {
+export default function TagsMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -30,14 +27,14 @@ export default function TagsMenu({ categories }: TagsMenuProps) {
               All notes
             </Link>
           </li>
-          {categories.map((category) => {
+          {tags.map((tag) => {
             return (
-              <li key={category.id} className={css.menuItem}>
+              <li key={tag} className={css.menuItem}>
                 <Link
-                  href={`/notes/filter/${category.id}`}
+                  href={`/notes/filter/${tag}`}
                   className={css.menuLink}
                   onClick={() => setIsOpen(false)}>
-                  {category.name}
+                  {tag}
                 </Link>
               </li>
             )

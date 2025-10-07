@@ -1,23 +1,19 @@
 import Link from 'next/link';
 import css from './SidebarNotes.module.css'
-import { fetchCategories } from '@/lib/api';
+
+const tags = ["All", "Todo", "Work", "Personal", "Meeting", "Shopping"];
+
+
 
 export default async function SidebarNotes() {
-  const categories = await fetchCategories();
-
 
   return (
     <ul className={css.menuList}>
-      <li className={css.menuItem}>
-        <Link href="/notes/filter/All" className={css.menuLink}>
-          All
-        </Link>
-      </li>
       {/* список тегів */}
-      {categories.map(category =>
-        <li className={css.menuItem} key={category.id}>
-          <Link href={`/notes/filter/${category.id}`} className={css.menuLink}>
-            {category.name}
+      {tags.map(tag =>
+        <li className={css.menuItem} key={tag}>
+          <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+            {tag}
           </Link>
         </li>)
       }

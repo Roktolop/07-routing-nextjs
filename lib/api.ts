@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { Category, Note, NoteTag } from '@/types/note';
+import { Note, NoteTag } from '@/types/note';
 
 const API_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 export interface FetchNotesRequest {
   searchText?: string,
   page: number,
-  categoryId?: string,
+  tag?: string,
 }
 
 export interface FetchNotesResponse {
@@ -22,20 +22,20 @@ export interface CreateNoteProps {
 
 
 export const api = axios.create({
-  baseURL: 'https://next-docs-9f0504b0a741.herokuapp.com',
+  baseURL: 'https://notehub-public.goit.study/api',
   headers: {
     'Authorization': `Bearer ${API_KEY}`,
     'Content-Type': 'application/json',
   },
 });
 
-export async function fetchNotes({ searchText, page, categoryId }: FetchNotesRequest): Promise<FetchNotesResponse> {
+export async function fetchNotes({ searchText, page, tag }: FetchNotesRequest): Promise<FetchNotesResponse> {
   const response = await api.get<FetchNotesResponse>("/notes", {
     params: {
       ...(searchText !== "" && { search: searchText }),
       page,
       perPage: 12,
-      categoryId,
+      tag,
     },
   });
 
@@ -43,6 +43,12 @@ export async function fetchNotes({ searchText, page, categoryId }: FetchNotesReq
 
   return response.data;
 };
+
+export async function fetchNoteById(id: string): Promise<Note> {
+  const response = await api.get<Note>(`/notes/${id}`);
+
+  return response.data;
+}
 
 export async function createNote(data: CreateNoteProps): Promise<Note> {
   const response = await api.post<Note>(`/notes`, data);
@@ -58,14 +64,3 @@ export async function deleteNote(id: string): Promise<Note> {
   return response.data
 }
 
-export async function fetchNoteById(id: string): Promise<Note> {
-  const response = await api.get<Note>(`/notes/${id}`);
-
-  return response.data;
-}
-
-export async function fetchCategories() {
-  const response = await api.get<Category[]>(`/categories`);
-
-  return response.data;
-}

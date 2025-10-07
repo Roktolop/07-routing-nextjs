@@ -10,17 +10,17 @@ export default async function FilteresPage({ params }: Props) {
   const { slug } = await params;
   console.log('filters', slug);
 
-  const [categoryId] = slug;
+  const [tag] = slug;
 
   const requestParams = {
-    categoryId: categoryId === 'All' ? undefined : categoryId, page: 1,
+    tag: tag === 'All' ? undefined : tag, page: 1,
     searchText: ''
   }
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['notes', 1, requestParams.categoryId],
+    queryKey: ['notes', 1, requestParams.tag],
     queryFn: () => fetchNotes(requestParams),
   })
 
@@ -28,7 +28,7 @@ export default async function FilteresPage({ params }: Props) {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <NotesClient categoryId={requestParams.categoryId} />
+      <NotesClient tag={requestParams.tag} />
     </HydrationBoundary>
   )
 }

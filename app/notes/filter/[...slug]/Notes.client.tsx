@@ -12,10 +12,10 @@ import { NoteForm } from '@/components/NoteForm/NoteForm'
 import { useDebounce } from 'use-debounce'
 
 interface Props {
-  categoryId?: string;
+  tag?: string;
 }
 
-function NotesClient({ categoryId }: Props) {
+function NotesClient({ tag }: Props) {
   const [curPage, setCurPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("")
@@ -23,11 +23,11 @@ function NotesClient({ categoryId }: Props) {
   const [debouncedValue] = useDebounce(searchValue, 500);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ['notes', curPage, debouncedValue, categoryId],
+    queryKey: ['notes', curPage, debouncedValue, tag],
     queryFn: () => fetchNotes({
       searchText: debouncedValue,
       page: curPage,
-      categoryId
+      tag,
     }),
     placeholderData: keepPreviousData
   })
