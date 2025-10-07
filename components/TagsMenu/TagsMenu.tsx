@@ -1,10 +1,11 @@
 'use client';
 
+import { NoteTag } from '@/types/note';
 import css from './TagsMenu.module.css'
 import Link from 'next/link';
 import { useState } from 'react';
 
-const tags = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
+const tags: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
 export default function TagsMenu() {
   const [isOpen, setIsOpen] = useState(false);
